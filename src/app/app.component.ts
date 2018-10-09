@@ -17,7 +17,8 @@ export class AppComponent {
   }
 
   private teste() {
-    let numero = 1;
+    let numero=1;
+    let nome = `alvaro`;
     let i = 1;
     for (i = 0; (i < 9 || i === 7); i += 1) {
       const index = 8;
