@@ -22,10 +22,16 @@
       "rxjs/Rx"
     ],
     "import-spacing": true,
+    // edit this 
     "indent": [
-      true,
-      "spaces"
+      false
     ],
+    // edit this 
+    "ter-indent": [
+      false
+    ],
+    // edit this 
+    "align": [false],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [

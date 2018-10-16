@@ -1,0 +1,20 @@
+<mat-grid-list cols="1" rowHeight="80px">
+  <mat-grid-tile>
+    <mat-form-field class="full-width">
+      <mat-label>
+        <b>Grupos</b>
+      </mat-label>
+      <mat-select [(ngModel)]="selectedGroup" required>
+        <mat-option>Selecione um grupo...</mat-option>
+        <mat-option *ngFor="let group of groups" [value]="group">{{group.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="50">
+  <mat-grid-tile>
+    <button mat-raised-button (click)="cancel($event)">Cancelar</button>
+    <button mat-raised-button (click)="generate($event)">Gerar</button>
+  </mat-grid-tile>
+</mat-grid-list>

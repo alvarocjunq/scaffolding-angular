@@ -1,0 +1,41 @@
+<mat-grid-list cols="2" rowHeight="80px">
+  <form class="form">
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Acrônimo">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Capa">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Sistema">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Subsistema">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <mat-label>
+          <b>Tecnologia</b>
+        </mat-label>
+        <mat-select [(ngModel)]="selectedTechnology" name="technology" required>
+          <mat-option>Selecione...</mat-option>
+          <mat-option *ngFor="let file of files" [value]="file.technology">{{file.technology}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </form>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="50">
+  <mat-grid-tile>
+    <button mat-raised-button (click)="next($event)">Próximo</button>
+  </mat-grid-tile>
+</mat-grid-list>
