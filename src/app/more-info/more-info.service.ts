@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Group } from '../models/group';
 import { Project } from '../models/project';
 import { AppService } from '../app.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MoreInfoService {
@@ -25,14 +26,19 @@ export class MoreInfoService {
 
   forkProject({ nameGroup }): Observable<Project> {
     return this.http.post<Project>(`${this.url}projects/${this.appService.project.id}/fork`,
-                                   { namespace: nameGroup },
-                                   this.httpOptions);
+      { namespace: nameGroup },
+      this.httpOptions);
   }
 
   editProject({ id, name }): Observable<Project> {
     return this.http.put<Project>(`${this.url}projects/${id}`,
-                                  { name, path: name },
-                                  this.httpOptions);
+      { name, path: name },
+      this.httpOptions)
+      .pipe(
+        map((project: Project) => {
+          this.appService.project.http_url_to_repo = project.http_url_to_repo;
+          return project;
+        }));
   }
 
   deleteForkRelationship({ id }) {
