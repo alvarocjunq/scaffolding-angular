@@ -51,12 +51,15 @@ export class MoreInfoComponent implements OnInit {
     return true;
   }
   private forkProject() {
+    // Criar o projeto
     this.moreInfoService.forkProject({ nameGroup: this.selectedGroup.name })
       .pipe(
         switchMap((project: Project) =>
+          // Mudar o nome do projeto (pois vai com o nome do template)
           this.moreInfoService.editProject({ id: project.id, name: this.nameNewProject }),
         ),
         switchMap((project2: Project) =>
+          // Remover o relacionamento com o projeto de template
           this.moreInfoService.deleteForkRelationship({ id: project2.id }),
         ))
       .subscribe(() => {

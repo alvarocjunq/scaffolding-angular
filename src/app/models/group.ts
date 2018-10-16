@@ -3,3 +3,5 @@ export class Group {
   name: string;
   path: string;
 }
+
+export type Groups = Group[];

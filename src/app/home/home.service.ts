@@ -5,6 +5,7 @@ import { Project } from '../models/project';
 import { Files, File } from '../models/file';
 import { AppService } from '../app.service';
 import { map } from 'rxjs/operators';
+import { Groups } from '../models/group';
 
 @Injectable()
 export class HomeService {
@@ -33,6 +34,31 @@ export class HomeService {
           return files;
         }),
       );
+  }
+
+  getGroups(): Observable<Groups> {
+    return this.http.get<Groups>(`${this.URL}groups?owned=true`, this.httpOptions);
+  }
+
+  forkProject({ nameGroup }): Observable<Project> {
+    return this.http.post<Project>(`${this.URL}projects/${this.appService.project.id}/fork`,
+      { namespace: nameGroup },
+      this.httpOptions);
+  }
+
+  editProject({ id, name }): Observable<Project> {
+    return this.http.put<Project>(`${this.URL}projects/${id}`,
+      { name, path: name },
+      this.httpOptions)
+      .pipe(
+        map((project: Project) => {
+          this.appService.project.http_url_to_repo = project.http_url_to_repo;
+          return project;
+        }));
+  }
+
+  deleteForkRelationship({ id }) {
+    return this.http.delete(`${this.URL}projects/${id}/fork`, this.httpOptions);
   }
 
   setTemplateId(files: Files, selectedType: string): void {
