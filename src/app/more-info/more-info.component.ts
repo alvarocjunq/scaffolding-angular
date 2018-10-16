@@ -39,7 +39,8 @@ export class MoreInfoComponent implements OnInit {
     this.forkProject();
   }
 
-  cancel() {
+  cancel(e: Event) {
+    e.stopPropagation();
     this.router.navigate(['/home']);
   }
 
