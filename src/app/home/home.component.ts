@@ -17,11 +17,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   files: Files;
   selectedTechnology: string;
-
   groups: Groups;
   selectedGroup: Group;
-
   nameNewProject: string;
+  progressBarMode = 'indeterminate';
+  isWaiting = false;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private homeService: HomeService,
@@ -57,22 +57,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     return `${Math.random()}`;
   }
   private forkProject() {
+    this.isWaiting = true;
     // Criar o projeto
     this.homeService.forkProject({ nameGroup: this.selectedGroup.name })
       .pipe(
-        switchMap((project: Project) =>
+        switchMap((forkedProject: Project) =>
           // Mudar o nome do projeto (pois vai com o nome do template)
-          this.homeService.editProject({ id: project.id, name: this.nameNewProject }),
+          this.homeService.editProject({ id: forkedProject.id, name: this.nameNewProject }),
         ),
-        switchMap((project2: Project) =>
+        switchMap((editedProject: Project) =>
           // Remover o relacionamento com o projeto de template
-          this.homeService.deleteForkRelationship({ id: project2.id }),
+          this.homeService.deleteForkRelationship({ id: editedProject.id }),
         ),
         takeUntil(this.unsubscribe))
       .subscribe(() => {
         sweetalert2('Sucesso', `Projeto ${this.nameNewProject} gerado com sucesso`, 'success');
         this.router.navigate(['/detail']);
       }, (res: HttpErrorResponse) => {
+        this.isWaiting = false;
         const message = `Projeto ${this.nameNewProject} não gerado<br>${res.status} - ${res.error.message.name[0]}`;
         sweetalert2('Erro', message, 'error');
       });
