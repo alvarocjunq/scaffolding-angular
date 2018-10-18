@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.router.navigate(['/detail']);
       }, (res: HttpErrorResponse) => {
         this.isWaiting = false;
-        const message = `Projeto ${this.nameNewProject} não gerado<br>${res.status} - ${res.error.message.name[0]}`;
+        const message = `Projeto ${this.nameNewProject} não gerado<br><br>${res.status} - ${JSON.stringify(res.error)}`;
         sweetalert2('Erro', message, 'error');
       });
   }
