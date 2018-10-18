@@ -9,7 +9,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // document.domain = 'herokuapp.com';
-    window.addEventListener('message', receiveMessage, false);
+    window.addEventListener('message', receiveMessage);
     function receiveMessage(event) {
       console.log(event);
     }
