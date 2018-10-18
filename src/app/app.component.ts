@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
   ngOnInit(): void {
-    document.domain = 'herokuapp.com';
+    // document.domain = 'herokuapp.com';
     window.addEventListener('message', receiveMessage, false);
     function receiveMessage(event) {
       console.log(event);
