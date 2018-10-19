@@ -5,8 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import sweetalert2 from 'sweetalert2';
 
 import { MoreInfoService } from './more-info.service';
-import { Group } from '../models/group';
-import { Project } from '../models/project';
+import { Group } from '../.models/group';
+import { Project } from '../.models/project';
 
 @Component({
   selector: 'app-more-info',

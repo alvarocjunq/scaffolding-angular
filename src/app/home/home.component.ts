@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
-import { Files } from '../models/file';
+import { Files } from '../.models/file';
 import sweetalert2 from 'sweetalert2';
-import { Group, Groups } from '../models/group';
+import { Group, Groups } from '../.models/group';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { Project } from '../models/project';
+import { Project } from '../.models/project';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject } from 'rxjs/internal/Subject';
 @Component({

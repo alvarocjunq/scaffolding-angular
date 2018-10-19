@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Group } from '../models/group';
-import { Project } from '../models/project';
+import { Group } from '../.models/group';
+import { Project } from '../.models/project';
 import { AppService } from '../app.service';
 import { map } from 'rxjs/operators';
 
