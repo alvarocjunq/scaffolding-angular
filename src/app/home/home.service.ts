@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Project } from '../.models/project';
 import { Files, File } from '../.models/file';
@@ -23,10 +23,7 @@ export class HomeService {
     return this.projectService.getArchives(this.ID_REPOSITORY_TEMPLATE)
       .pipe(
         map((files: Files) => {
-          files.map((file: File) => {
-            file.technology = this.getStrDash(file.name);
-            return file;
-          });
+          files.forEach(file => file.technology = this.getStrDash(file.name));
           return files;
         }),
       );
@@ -36,8 +33,17 @@ export class HomeService {
     return this.groupService.getAll();
   }
 
-  forkProject({ nameGroup }): Observable<Project> {
-    return this.projectService.fork({ nameGroup, idProject: this.appService.project.id });
+  forkProject({ nameGroup, nameNewProject }) {
+    return this.projectService.fork({ nameGroup, idProject: this.appService.project.id })
+      .pipe(
+        switchMap((forkedProject: Project) =>
+          // Mudar o nome do projeto (pois vai com o nome do template)
+          this.editProject({ id: forkedProject.id, name: nameNewProject }),
+        ),
+        switchMap((editedProject: Project) =>
+          // Remover o relacionamento com o projeto de template
+          this.deleteForkRelationship({ id: editedProject.id }),
+        ));
   }
 
   editProject({ id, name }): Observable<Project> {
