@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HomeService } from './home.service';
-import { Router } from '@angular/router';
-import { Files } from '../.models/file';
-import sweetalert2 from 'sweetalert2';
-import { Group, Groups } from '../.models/group';
-import { takeUntil } from 'rxjs/operators';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+import { HomeService } from './home.service';
+import { Files } from '../.models/file';
+import { Groups } from '../.models/group';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
 import { Alert } from '../.shared/alert';
 @Component({
@@ -15,16 +16,23 @@ import { Alert } from '../.shared/alert';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  projectForm = this.fb.group({
+    acronimo: ['', Validators.required],
+    capa: ['', Validators.required],
+    sistema: ['', Validators.required],
+    subsistema: ['', Validators.required],
+    selectedTechnology: ['', Validators.required],
+    selectedGroup: ['', Validators.required],
+  });
+
   files: Files;
-  selectedTechnology: string;
   groups: Groups;
-  selectedGroup: Group;
   nameNewProject: string;
   isWaiting = false;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private homeService: HomeService,
-    private router: Router) { }
+    private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.homeService.getTemplates().pipe(takeUntil(this.unsubscribe))
@@ -34,46 +42,28 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(groups => this.groups = groups);
   }
 
-  generate(e: Event) {
-    e.stopPropagation();
-    if (!this.isValid()) {
-      Alert.error('Todos os campos com * são de preenchimento obrigatório');
-      return;
-    }
-    this.nameNewProject = this.getNameNewProject();
-    this.homeService.setTemplateId(this.files, this.selectedTechnology);
-    this.forkProject();
+  generate() {
+    const valueForm = this.projectForm.value;
+    this.nameNewProject = this.getNameNewProject(valueForm);
+    this.homeService.setTemplateId(this.files, valueForm.selectedTechnology);
+    this.forkProject(valueForm);
   }
 
   // TODO: Implementar lógica para montar o nome do projeto
-  private getNameNewProject(): string {
-    return `${Math.random()}`;
+  private getNameNewProject(valueForm: any): string {
+    return `${valueForm.acronimo}`;
   }
-  private forkProject() {
+  private forkProject(valueForm: any) {
     this.isWaiting = true;
-    // Criar o projeto
-    this.homeService.forkProject({
-      nameGroup: this.selectedGroup.name,
-      nameNewProject: this.nameNewProject,
-    })
+    this.homeService.forkProject(valueForm, this.nameNewProject)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => {
         Alert.success(`Projeto ${this.nameNewProject} gerado com sucesso`);
         this.router.navigate(['/detail']);
-      }, (res: HttpErrorResponse) => {
-        this.isWaiting = false;
-        Alert.error(`Projeto ${this.nameNewProject} não gerado<br><br>${res.status} - ${JSON.stringify(res.error)}`);
+      }, (err) => {
+          this.isWaiting = false;
+          Alert.error(`Projeto <b>${this.nameNewProject}</b> não gerado<br><br>${err.status} - ${JSON.stringify(err.error)}`);
       });
-  }
-
-  private isValid(): boolean {
-    if (!this.selectedTechnology) {
-      return false;
-    }
-    if (!this.selectedGroup) {
-      return false;
-    }
-    return true;
   }
 
   ngOnDestroy(): void {
