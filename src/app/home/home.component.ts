@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   groups: Groups;
   selectedGroup: Group;
   nameNewProject: string;
-  progressBarMode = 'indeterminate';
   isWaiting = false;
   private unsubscribe: Subject<void> = new Subject();
 
@@ -46,8 +45,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.forkProject();
   }
 
+  // TODO: Implementar lógica para montar o nome do projeto
   private getNameNewProject(): string {
-    // TODO: Implementar lógica para montar o nome do projeto
     return `${Math.random()}`;
   }
   private forkProject() {

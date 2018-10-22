@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Project } from '../.models/project';
 import { Files, File } from '../.models/file';
+import { Groups } from '../.models/group';
 import { AppService } from '../app.service';
 import { GroupService } from '../.services/group.service';
 import { ProjectService } from '../.services/project.service';
-import { Groups } from '../.models/group';
 
 @Injectable()
 export class HomeService {
