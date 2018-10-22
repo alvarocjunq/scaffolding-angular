@@ -33,52 +33,30 @@ export class HomeService {
   }
 
   forkProject(valueForm: any, nameNewProject: string) {
-
-    // this.groupService.add() adicionar capa
-    // this.groupService.add() adicionar sistema
-    // this.groupService.add() adicionar subsistema
-
-    // return forkJoin([
-    //   this.groupService.add({ name: valueForm.capa, parentId: valueForm.selectedGroup.id }), // adicionar capa
-    //   this.groupService.add({ name: valueForm.sistema, parentId: '' }), // adicionar sistema
-    //   this.groupService.add({ name: valueForm.subsistema, parentId: '' }), // adicionar subsistema
-    // ], (_capa, _sistema, _subsistema) => {
-    //   return _subsistema;
-    // })
     return this.groupService.add({ name: valueForm.capa, parentId: valueForm.selectedGroup.id })
       .pipe(
+        // Criar pasta para CAPA
         switchMap((group: Group) =>
           this.groupService.add({ name: valueForm.sistema, parentId: group.id }),
         ),
+        // Criar pasta para Sistema
         switchMap((group: Group) =>
           this.groupService.add({ name: valueForm.subsistema, parentId: group.id }),
         ),
+        // Criar pasta para Subsistema
         switchMap((group: Group) =>
           this.projectService.fork({ nameGroup: group.id, idProject: this.appService.project.id }),
         ),
+        // Mudar o nome do projeto (pois vai com o nome do template)
         switchMap((forkedProject: Project) =>
-          // Mudar o nome do projeto (pois vai com o nome do template)
           this.editProject({ id: forkedProject.id, name: nameNewProject }),
         ),
+        // Remover o relacionamento com o projeto de template
         switchMap((editedProject: Project) =>
-          // Remover o relacionamento com o projeto de template
           this.deleteForkRelationship({ id: editedProject.id }),
         ),
         catchError((error) => { throw error; }),
       );
-    // this.projectService.fork({ nameGroup, idProject: this.appService.project.id })
-    //   .pipe(
-    //     switchMap((forkedProject: Project) =>
-    //       // Mudar o nome do projeto (pois vai com o nome do template)
-    //       this.editProject({ id: forkedProject.id, name: nameNewProject }),
-    //     ),
-    //     switchMap((editedProject: Project) =>
-    //       // Remover o relacionamento com o projeto de template
-    //       this.deleteForkRelationship({ id: editedProject.id }),
-    //     ),
-    //     catchError((error) => { throw error; }),
-    //   );
-
   }
 
   editProject({ id, name }): Observable<Project> {
