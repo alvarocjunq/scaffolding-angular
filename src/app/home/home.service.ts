@@ -33,17 +33,18 @@ export class HomeService {
   }
 
   forkProject(valueForm: any, nameNewProject: string) {
+    // Criar pasta para CAPA
     return this.groupService.add({ name: valueForm.capa, parentId: valueForm.selectedGroup.id })
       .pipe(
-        // Criar pasta para CAPA
+        // Criar pasta para Sistema
         switchMap((group: Group) =>
           this.groupService.add({ name: valueForm.sistema, parentId: group.id }),
         ),
-        // Criar pasta para Sistema
+        // Criar pasta para Subsistema
         switchMap((group: Group) =>
           this.groupService.add({ name: valueForm.subsistema, parentId: group.id }),
         ),
-        // Criar pasta para Subsistema
+        // fork do projeto de template
         switchMap((group: Group) =>
           this.projectService.fork({ nameGroup: group.id, idProject: this.appService.project.id }),
         ),
