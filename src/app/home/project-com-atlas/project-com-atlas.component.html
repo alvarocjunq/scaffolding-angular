@@ -1,0 +1,42 @@
+<mat-grid-list cols="2" rowHeight="80px">
+
+  <form class="form" [formGroup]="projectForm">
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Acrónimo" formControlName="acronimo" required>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Capa" formControlName="capa" required>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Sistema" formControlName="sistema" required>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Subsistema" formControlName="subsistema" required>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <mat-label>
+          <b>Tecnologia</b>
+        </mat-label>
+        <mat-select formControlName="selectedTechnology" name="technology" required>
+          <mat-option>Selecione...</mat-option>
+          <mat-option *ngFor="let file of files" [value]="file.technology">{{file.technology}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </form>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="50">
+  <mat-grid-tile>
+    <button mat-raised-button class="button-default" [disabled]="!projectForm.valid" (click)="generate()">Gerar</button>
+  </mat-grid-tile>
+</mat-grid-list>

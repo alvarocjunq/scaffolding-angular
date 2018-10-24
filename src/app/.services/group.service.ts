@@ -15,12 +15,16 @@ export class GroupService {
     return this.http.get<Groups>(`groups?owned=true`);
   }
 
-  add({ name, parentId }): Observable<Group> {
-    return this.http.post<Group>(`groups`,
-      {
-        name,
-        path: name,
-        parent_id: parentId,
-      });
+  add(name: string, parentId?: number): Observable<Group> {
+    const group: any = {
+      name,
+      path: name,
+    };
+
+    if (parentId) {
+      group.parent_id = parentId;
+    }
+
+    return this.http.post<Group>(`groups`, group);
   }
 }
