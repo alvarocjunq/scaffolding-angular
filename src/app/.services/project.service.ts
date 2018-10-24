@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Files } from '../.models/file';
 import { Project } from '../.models/project';
-import { HttpService } from '../.shared/http.service';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',

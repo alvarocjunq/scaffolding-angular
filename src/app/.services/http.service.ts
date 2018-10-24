@@ -28,9 +28,7 @@ export class HttpService {
         return this.http.put<T>(`${URL_BASE}${url}`,
             body,
             HTTP_OPTIONS)
-            .pipe(
-                // catchError(this.handleError<any>('')
-                catchError(this.handleError<T>()));
+            .pipe(catchError(this.handleError<T>()));
     }
 
     delete<T>(url: string): Observable<T> {

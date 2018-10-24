@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Groups, Group } from '../.models/group';
-import { HttpService } from '../.shared/http.service';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',

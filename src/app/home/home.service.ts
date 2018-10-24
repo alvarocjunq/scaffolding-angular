@@ -33,34 +33,18 @@ export class HomeService {
   }
 
   forkProject(valueForm: any, nameNewProject: string) {
-    // Criar pasta para CAPA
     return this.groupService.add({ name: valueForm.capa, parentId: valueForm.selectedGroup.id })
       .pipe(
-        // Criar pasta para Sistema
-        switchMap((group: Group) =>
-          this.groupService.add({ name: valueForm.sistema, parentId: group.id }),
-        ),
-        // Criar pasta para Subsistema
-        switchMap((group: Group) =>
-          this.groupService.add({ name: valueForm.subsistema, parentId: group.id }),
-        ),
-        // fork do projeto de template
-        switchMap((group: Group) =>
-          this.projectService.fork({ nameGroup: group.id, idProject: this.appService.project.id }),
-        ),
-        // Mudar o nome do projeto (pois vai com o nome do template)
-        switchMap((forkedProject: Project) =>
-          this.editProject({ id: forkedProject.id, name: nameNewProject }),
-        ),
-        // Remover o relacionamento com o projeto de template
-        switchMap((editedProject: Project) =>
-          this.deleteForkRelationship({ id: editedProject.id }),
-        ),
+        switchMap(group => this.groupService.add({ name: valueForm.sistema, parentId: group.id })),
+        switchMap(group => this.groupService.add({ name: valueForm.subsistema, parentId: group.id })),
+        switchMap(group => this.projectService.fork({ nameGroup: group.id, idProject: this.appService.project.id })),
+        switchMap(forkedProject => this.editProject({ id: forkedProject.id, name: nameNewProject })),
+        switchMap((editedProject: Project) => this.deleteForkRelationship({ id: editedProject.id })),
         catchError((error) => { throw error; }),
       );
   }
 
-  editProject({ id, name }): Observable<Project> {
+  private editProject({ id, name }): Observable<Project> {
     return this.projectService.edit({ id, name })
       .pipe(
         map((project: Project) => {
@@ -69,7 +53,7 @@ export class HomeService {
         }));
   }
 
-  deleteForkRelationship({ id }) {
+  private deleteForkRelationship({ id }) {
     return this.projectService.deleteFork({ id });
   }
 
