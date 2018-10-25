@@ -12,4 +12,8 @@ export class HomeComponent {
   optionAtlas = 'com';
 
   constructor() { }
+
+  toggleWaiting(isWaiting: boolean): void {
+    this.isWaiting = isWaiting;
+  }
 }

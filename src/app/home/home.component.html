@@ -16,5 +16,8 @@
   </mat-radio-group>
 </mat-grid-list>
 
-<app-project-com-atlas *ngIf="optionAtlas === 'com'"></app-project-com-atlas>
-<app-project-sem-atlas *ngIf="optionAtlas === 'sem'"></app-project-sem-atlas>
+<app-project-com-atlas *ngIf="optionAtlas === 'com'" (isWaiting)="toggleWaiting($event)">
+</app-project-com-atlas>
+
+<app-project-sem-atlas *ngIf="optionAtlas === 'sem'" (isWaiting)="toggleWaiting($event)">
+</app-project-sem-atlas>

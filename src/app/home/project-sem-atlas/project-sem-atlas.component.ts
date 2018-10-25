@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Groups } from 'src/app/.models/group';
 import { HomeService } from '../home.service';
 import { takeUntil } from 'rxjs/operators';
@@ -15,6 +15,9 @@ import { Files } from 'src/app/.models/file';
 })
 export class ProjectSemAtlasComponent implements OnInit, OnDestroy {
 
+  @Output()
+  isWaiting = new EventEmitter();
+
   projectForm = this.fb.group({
     acronimo: ['', Validators.required],
     selectedGroup: ['', Validators.required],
@@ -23,7 +26,6 @@ export class ProjectSemAtlasComponent implements OnInit, OnDestroy {
   nameNewProject: string;
   groups: Groups;
   files: Files;
-  isWaiting = false; // TODO: emitir para o componente pai
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private homeService: HomeService, private fb: FormBuilder,
@@ -43,15 +45,16 @@ export class ProjectSemAtlasComponent implements OnInit, OnDestroy {
   }
 
   generate() {
+    this.isWaiting.emit(true);
     const form = this.projectForm.value;
     this.nameNewProject = this.getNameNewProject(form);
-    this.homeService.setTemplateId(this.files, form.selectedTechnology);
-    this.homeService.forkSingleProject(form, this.nameNewProject)
+
+    this.homeService.forkSingleProject(form, this.nameNewProject, this.files)
       .subscribe(() => {
         Alert.success(`Projeto <b>${this.nameNewProject}</b> gerado com sucesso`);
         this.router.navigate(['/detail']);
       }, (err) => {
-        this.isWaiting = false;
+        this.isWaiting.emit(false);
         Alert.error(`Projeto <b>${this.nameNewProject}</b> não gerado<br><br>${err.status} - ${JSON.stringify(err.error)}`);
       });
   }
