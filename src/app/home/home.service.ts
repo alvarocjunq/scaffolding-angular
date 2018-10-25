@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, concat } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { File, Files } from '../.models/file';
-import { Groups, Group } from '../.models/group';
+import { Group, Groups } from '../.models/group';
 import { Project } from '../.models/project';
 import { GroupService } from '../.services/group.service';
 import { ProjectService } from '../.services/project.service';
@@ -39,7 +39,7 @@ export class HomeService {
     if (this.cachedGroups) {
       return of(this.cachedGroups);
     }
-    return this.groupService.getAll().pipe(map((groups: Groups) => this.cachedGroups = groups));
+    return this.groupService.getAll().pipe(map(groups => this.cachedGroups = groups));
   }
 
   // TODO: verificar se cada criação de grupo existe antes de tentar criar, senão dá erro
@@ -48,6 +48,8 @@ export class HomeService {
       .pipe(
         switchMap(group => this.groupService.add(valueForm.sistema, group.id)),
         switchMap(group => this.groupService.add(valueForm.subsistema, group.id)),
+        switchMap(group => this.groupService.add(valueForm.aplicacaoFuncional, group.id)),
+        switchMap(group => this.groupService.add(valueForm.servicoFuncional, group.id)),
         switchMap(group => this.fork(group, nameNewProject, files, valueForm.selectedTechnology)),
       );
   }

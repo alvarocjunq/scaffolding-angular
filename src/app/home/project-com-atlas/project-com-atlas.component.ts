@@ -23,9 +23,11 @@ export class ProjectComAtlasComponent implements OnInit, OnDestroy {
     sistema: ['', Validators.required],
     subsistema: ['', Validators.required],
     selectedTechnology: ['', Validators.required],
+    aplicacaoFuncional: ['', Validators.required],
+    servicoFuncional: ['', Validators.required],
   });
   files: Files;
-  nameNewProject: string;
+  private nameNewProject: string;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private homeService: HomeService,

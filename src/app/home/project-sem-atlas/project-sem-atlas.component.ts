@@ -23,9 +23,9 @@ export class ProjectSemAtlasComponent implements OnInit, OnDestroy {
     selectedGroup: ['', Validators.required],
     selectedTechnology: ['', Validators.required],
   });
-  nameNewProject: string;
   groups: Groups;
   files: Files;
+  private nameNewProject: string;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private homeService: HomeService, private fb: FormBuilder,
