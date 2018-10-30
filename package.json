@@ -9,6 +9,7 @@
     "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
+    "doc": "compodoc -p src/tsconfig.app.json",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -31,11 +32,11 @@
     "material-design-icons": "^3.0.1",
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
+    "scaffolding-detail": "file:scaffolding-detail-0.0.1.tgz",
     "sweetalert2": "^7.28.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "typescript": "~3.1.3",
     "@angular-devkit/build-angular": "~0.10.0",
     "@angular/cli": "~7.0.2",
     "@angular/compiler-cli": "^7.0.0",
@@ -52,10 +53,12 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-packagr": "^4.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "tslint-config-airbnb": "^5.11.0"
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "~3.1.3"
   },
   "engines": {
     "node": "10.11.0",

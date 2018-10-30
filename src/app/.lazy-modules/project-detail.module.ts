@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProjectDetailComponent } from './project-detail.component';
 import { MaterialModule } from '../material-module';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ScaffoldingDetailModule, ScaffoldingDetailComponent } from 'scaffolding-detail';
+
 const routes: Routes = [
-  { path: '', component: ProjectDetailComponent },
+  { path: '', component: ScaffoldingDetailComponent },
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
+    ScaffoldingDetailModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [ProjectDetailComponent],
+  declarations: [],
 })
 export class ProjectDetailModule { }

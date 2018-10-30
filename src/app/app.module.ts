@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material-module';
-import { ServiceWorkerModule } from '@angular/service-worker';
+// import { ScaffoldingDetailModule } from 'scaffolding-detail';
+
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -23,9 +25,9 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
+    // ScaffoldingDetailModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

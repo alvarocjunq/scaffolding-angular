@@ -6,7 +6,9 @@ import { Group, Groups } from '../.models/group';
 import { Project } from '../.models/project';
 import { GroupService } from '../.services/group.service';
 import { ProjectService } from '../.services/project.service';
-import { AppService } from '../app.service';
+// import { AppService } from '../app.service';
+
+import { ScaffoldingDetailService } from 'scaffolding-detail';
 
 @Injectable()
 export class HomeService {
@@ -15,7 +17,7 @@ export class HomeService {
   cachedGroups: Groups;
   cachedTemplates: Files;
 
-  constructor(private appService: AppService,
+  constructor(private detailService: ScaffoldingDetailService,
     private groupService: GroupService,
     private projectService: ProjectService) { }
 
@@ -60,7 +62,7 @@ export class HomeService {
 
   private fork(group: Group, nameNewProject: string, files: Files, technology: string) {
     this.setTemplateId(files, technology);
-    return this.projectService.fork({ nameGroup: group.id, idProject: this.appService.project.id })
+    return this.projectService.fork({ nameGroup: group.id, idProject: this.detailService.project.id })
       .pipe(
         switchMap(forkedProject => this.editProject({ id: forkedProject.id, name: nameNewProject })),
         switchMap((editedProject: Project) => this.deleteForkRelationship({ id: editedProject.id })),
@@ -71,7 +73,7 @@ export class HomeService {
     return this.projectService.edit({ id, name })
       .pipe(
         map((project: Project) => {
-          this.appService.project.http_url_to_repo = project.http_url_to_repo;
+          this.detailService.project.http_url_to_repo = project.http_url_to_repo;
           return project;
         }));
   }
@@ -86,7 +88,7 @@ export class HomeService {
     }).name;
 
     fileName = fileName.split('-').reverse().join('-');
-    this.appService.project.id = this.getStrDash(fileName);
+    this.detailService.project.id = this.getStrDash(fileName);
   }
 
   private getStrDash(str: string): string {
