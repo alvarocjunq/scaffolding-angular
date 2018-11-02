@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material-module';
 import { RouterModule, Routes } from '@angular/router';
+
+import { MaterialModule } from '../material-module';
 
 import { ScaffoldingDetailModule, ScaffoldingDetailComponent } from 'scaffolding-detail';
 
