@@ -50,6 +50,14 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "serviceWorker": true
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
@@ -61,6 +69,10 @@
           "configurations": {
             "production": {
               "browserTarget": "ARQ-SCAFFOLDING:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "ARQ-SCAFFOLDING:build:hmr"
             }
           }
         },
