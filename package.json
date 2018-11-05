@@ -33,6 +33,7 @@
     "rxjs": "~6.3.3",
     "scaffolding-detail": "file:scaffolding-detail-0.0.1.tgz",
     "sweetalert2": "^7.28.5",
+    "typeface-roboto": "0.0.54",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

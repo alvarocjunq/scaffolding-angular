@@ -23,7 +23,7 @@ export class ProjectService {
 
   edit({ id, name }): Observable<Project> {
     return this.http.put<Project>(`projects/${id}`,
-      { name, path: name });
+      { name, path: name, visibility: 'internal' });
   }
 
   deleteFork({ id }) {

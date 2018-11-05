@@ -6,7 +6,6 @@ import { Group, Groups } from '../.models/group';
 import { Project } from '../.models/project';
 import { GroupService } from '../.services/group.service';
 import { ProjectService } from '../.services/project.service';
-// import { AppService } from '../app.service';
 
 import { ScaffoldingDetailService } from 'scaffolding-detail';
 
@@ -45,14 +44,16 @@ export class HomeService {
   }
 
   // TODO: verificar se cada criação de grupo existe antes de tentar criar, senão dá erro
-  forkProject(valueForm: any, nameNewProject: string, files: Files) {
-    return this.groupService.add(valueForm.capa)
+  forkProject(form: any, nameNewProject: string, files: Files) {
+    const fullPath = `${form.capa}/${form.sistema}/${form.subsistema}/${form.aplicacaoFuncional}/${form.servicoFuncional}`;
+    return this.groupService.add(form.capa, form.capa)
       .pipe(
-        switchMap(group => this.groupService.add(valueForm.sistema, group.id)),
-        switchMap(group => this.groupService.add(valueForm.subsistema, group.id)),
-        switchMap(group => this.groupService.add(valueForm.aplicacaoFuncional, group.id)),
-        switchMap(group => this.groupService.add(valueForm.servicoFuncional, group.id)),
-        switchMap(group => this.fork(group, nameNewProject, files, valueForm.selectedTechnology)),
+        switchMap(group => this.groupService.add(`${form.capa}/${form.sistema}`, form.sistema, group.id)),
+        switchMap(group => this.groupService.add(`${form.capa}/${form.sistema}/${form.subsistema}`, form.subsistema, group.id)),
+        // tslint:disable-next-line:max-line-length
+        switchMap(group => this.groupService.add(`${form.capa}/${form.sistema}/${form.subsistema}/${form.aplicacaoFuncional}`, form.aplicacaoFuncional, group.id)),
+        switchMap(group => this.groupService.add(fullPath, form.servicoFuncional, group.id)),
+        switchMap(group => this.fork(group, nameNewProject, files, form.selectedTechnology)),
       );
   }
 
