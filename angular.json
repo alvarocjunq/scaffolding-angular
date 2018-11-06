@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "dist/ARQ-SCAFFOLDING",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/main.hmr.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [

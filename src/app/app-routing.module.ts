@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const ROUTES: Routes = [
+export const ROUTES: Routes = [
     { path: 'home', loadChildren: './home/home.module#HomeModule' },
     { path: 'detail', loadChildren: './lazy-modules/project-detail.module#ProjectDetailModule' },
     { path: '', redirectTo: '/home', pathMatch: 'full' },

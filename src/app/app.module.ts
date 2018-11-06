@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material-module';
-// import { ScaffoldingDetailModule } from 'scaffolding-detail';
 
 import { environment } from '../environments/environment';
 
@@ -25,7 +24,6 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    // ScaffoldingDetailModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   bootstrap: [AppComponent],
