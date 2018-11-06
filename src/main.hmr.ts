@@ -9,10 +9,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-// Default of Angular-cli
-// platformBrowserDynamic().bootstrapModule(AppModule)
-//   .catch(err => console.error(err));
-
 const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule);
 
 if (environment.hmr) {
