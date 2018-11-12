@@ -44,7 +44,6 @@ export class HomeService {
     return this.groupService.getAll().pipe(map(groups => this.cachedGroups = groups));
   }
 
-  // TODO: verificar se cada criação de grupo existe antes de tentar criar, senão dá erro
   forkProject(form: any, nameNewProject: string, files: Files) {
     return this.groupService.add(form.capa, form.capa)
       .pipe(
