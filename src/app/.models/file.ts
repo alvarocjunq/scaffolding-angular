@@ -5,6 +5,8 @@ export class File {
     path: string;
     mode: string;
     technology: string;
+    content: string;
+    enconding: string;
 }
 
 export type Files = File[];
