@@ -41,17 +41,6 @@ export class ProjectService {
   }
 
   updateFile(idProject: string, commit: Commit) {
-    // const commit: Commit = {
-    //   branch: 'master',
-    //   commit_message: 'initial commit',
-    //   actions: [{
-    //     content: btoa(content),
-    //     action: 'update',
-    //     file_path: path,
-    //     encoding: 'base64',
-    //   }],
-    // };
-
     return this.http.post(`projects/${idProject}/repository/commits`, commit);
   }
 }
