@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
-import { Groups, Group } from '../.models/group';
+import { switchMap } from 'rxjs/operators';
+import { Group, Groups } from '../.models/group';
 import { HttpService } from './http.service';
-import { map, switchMap, first, filter, isEmpty, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
