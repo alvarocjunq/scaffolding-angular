@@ -59,10 +59,12 @@ export class HomeService {
     return this.fork(valueForm.selectedGroup, nameNewProject, files, valueForm.selectedTechnology);
   }
 
-  private updateFiles(idProject: string, nameNewProject: string): Observable<{}> {
+  private updateFiles(idProject: string, nameProject: string): Observable<{}> {
 
     const packageJson = 'package.json';
     const angularJson = 'angular.json';
+    // TODO: Validar o pattern do node para isso
+    const nameNewProject = nameProject.toLowerCase().trim();
 
     return forkJoin([
       this.projectService.getFileContent(idProject, packageJson),
