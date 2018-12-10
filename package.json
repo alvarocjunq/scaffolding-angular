@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:node": "node server.js",
-    "start": "ng serve --open --configuration hmr",
+    "start": "ng serve --open --configuration hmr --port=4201",
     "build": "ng build --prod",
     "test": "ng test",
     "test:console": "ng test --code-coverage --watch=false --browsers=FirefoxHeadless",

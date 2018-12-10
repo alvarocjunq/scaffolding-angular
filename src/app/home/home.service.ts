@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, delay } from 'rxjs/operators';
 import { File, Files } from '../.models/file';
 import { Group, Groups } from '../.models/group';
 import { Project } from '../.models/project';
@@ -59,11 +59,19 @@ export class HomeService {
     return this.fork(valueForm.selectedGroup, nameNewProject, files, valueForm.selectedTechnology);
   }
 
-  private updateFiles(idProject: string, nameProject: string): Observable<{}> {
+  private updateFiles(idProject: string, nameProject: string, technology: string): Observable<{}> {
+    switch (technology) {
+      case 'Angular':
+        return this.updateFilesAngular(idProject, nameProject);
+      default:
+        return of({});
+    }
+  }
 
+  updateFilesAngular(idProject: string, nameProject: string) {
     const packageJson = 'package.json';
     const angularJson = 'angular.json';
-    // TODO: Validar o pattern do node para isso
+    // TODO: Validar o pattern de nome de projeto do node para isso
     const nameNewProject = nameProject.toLowerCase().trim();
 
     return forkJoin([
@@ -132,11 +140,12 @@ export class HomeService {
     this.setTemplateId(files, technology);
     return this.projectService.fork({ nameGroup: group.id, idProject: this.detailService.project.id })
       .pipe(
+        delay(10000),
         switchMap(forkedProject => this.editProject({ id: forkedProject.id, name: nameNewProject })),
         switchMap((editedProject: Project) => {
           return forkJoin([
             this.deleteForkRelationship({ id: editedProject.id }),
-            this.updateFiles(editedProject.id, nameNewProject),
+            this.updateFiles(editedProject.id, nameNewProject, technology),
           ]);
         }),
       );
