@@ -74,15 +74,16 @@ export class HomeService {
     // TODO: Validar o pattern de nome de projeto do node para isso
     const nameNewProject = nameProject.toLowerCase().trim();
 
-    return forkJoin([
+    return forkJoin(
       this.projectService.getFileContent(idProject, packageJson),
       this.projectService.getFileContent(idProject, angularJson),
-    ], (_packageJson: File, _angularJson: File) => {
-      return {
-        packageContent: _packageJson.content,
-        angularContent: _angularJson.content,
-      };
-    }).pipe(
+    ).pipe(
+      map(([_packageJson, _angularJson]) => {
+        return {
+          packageContent: _packageJson.content,
+          angularContent: _angularJson.content,
+        };
+      }),
       map((obj: any) => {
         obj.packageContent = this.replaceAllNames(obj.packageContent, nameNewProject);
         obj.angularContent = this.replaceAllNames(obj.angularContent, nameNewProject);
