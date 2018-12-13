@@ -1,24 +1,23 @@
-import { HomeService } from './home.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Files } from '../.models/file';
+import { Groups } from '../.models/group';
 import { GroupService } from '../.services/group.service';
 import { ProjectService } from '../.services/project.service';
-import { HttpService } from '../.services/http.service';
-import { ScaffoldingDetailService } from 'scaffolding-detail';
-import { Groups } from '../.models/group';
-import { asyncData, asyncError } from '../.shared/test-helper';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from 'selenium-webdriver/http';
-import { of, Observable } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Files } from '../.models/file';
-import { switchMap } from 'rxjs/operators';
+import { asyncError } from '../.shared/test-helper';
+import { HomeService } from './home.service';
 
 describe('Home Service', () => {
     let homeService: HomeService;
     let groupServiceSpy: jasmine.SpyObj<GroupService>;
     let projectServiceSpy: jasmine.SpyObj<ProjectService>;
     beforeEach(() => {
-        const groupSpy = jasmine.createSpyObj('GroupService', ['getAll']);
-        const projectSpy = jasmine.createSpyObj('ProjectService', ['updateFile', 'getArchives']);
+        const groupSpy = jasmine.createSpyObj('GroupService', ['getAll', 'add']);
+        const projectSpy = jasmine.createSpyObj('ProjectService', ['updateFile',
+            'getArchives',
+            'getFileContent']);
         TestBed.configureTestingModule({
             providers: [
                 HomeService,
