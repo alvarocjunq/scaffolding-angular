@@ -59,16 +59,7 @@ export class HomeService {
     return this.fork(valueForm.selectedGroup, nameNewProject, files, valueForm.selectedTechnology);
   }
 
-  private updateFiles(idProject: string, nameProject: string, technology: string): Observable<{}> {
-    switch (technology) {
-      case 'Angular':
-        return this.updateFilesAngular(idProject, nameProject);
-      default:
-        return of({});
-    }
-  }
-
-  updateFilesAngular(idProject: string, nameProject: string) {
+  private updateFilesAngular(idProject: string, nameProject: string) {
     const packageJson = 'package.json';
     const angularJson = 'angular.json';
     // TODO: Validar o pattern de nome de projeto do node para isso
@@ -176,5 +167,14 @@ export class HomeService {
 
   private getStrDash(str: string): string {
     return str.substr(0, str.indexOf('-'));
+  }
+
+  private updateFiles(idProject: string, nameProject: string, technology: string): Observable<{}> {
+    switch (technology) {
+      case 'Angular':
+        return this.updateFilesAngular(idProject, nameProject);
+      default:
+        return of({});
+    }
   }
 }

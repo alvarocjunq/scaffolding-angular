@@ -6,7 +6,7 @@
     "start:node": "node server.js",
     "start": "ng serve --open --configuration hmr --port=4201",
     "build": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test --browsers=Chrome --code-coverage",
     "test:console": "ng test --code-coverage --watch=false --browsers=FirefoxHeadless",
     "lint": "ng lint",
     "doc": "compodoc -p src/tsconfig.app.json",
