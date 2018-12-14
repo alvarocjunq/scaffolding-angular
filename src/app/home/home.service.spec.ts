@@ -185,8 +185,12 @@ describe('Home Service', () => {
                 done();
             });
     });
-    it('', () => {
 
+    it('deve criar um fork de um projeto que não tem hierarquia Atlas', () => {
+        const form = {
+            selectedGroup: '',
+            selectedTechnology: 'AppConfig',
+        };
     });
 
 });
