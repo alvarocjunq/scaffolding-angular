@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Groups } from 'src/app/.models/group';
+import { Groups } from 'src/app/$models/group';
 import { HomeService } from '../home.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Validators, FormBuilder } from '@angular/forms';
-import { Alert } from '../../.shared/alert';
+import { Alert } from '../../$shared/alert';
 import { Router } from '@angular/router';
-import { Files } from 'src/app/.models/file';
+import { Files } from 'src/app/$models/file';
 
 @Component({
   selector: 'app-project-sem-atlas',

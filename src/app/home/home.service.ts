@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
 import { map, switchMap, delay } from 'rxjs/operators';
-import { File, Files } from '../.models/file';
-import { Group, Groups } from '../.models/group';
-import { Project } from '../.models/project';
-import { GroupService } from '../.services/group.service';
-import { ProjectService } from '../.services/project.service';
+import { File, Files } from '../$models/file';
+import { Group, Groups } from '../$models/group';
+import { Project } from '../$models/project';
+import { GroupService } from '../$services/group.service';
+import { ProjectService } from '../$services/project.service';
 
 import { ScaffoldingDetailService } from 'scaffolding-detail';
-import { Commit } from '../.models/commit';
+import { Commit } from '../$models/commit';
 
 @Injectable()
 export class HomeService {

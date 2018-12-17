@@ -1,15 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { switchMap, delay } from 'rxjs/operators';
-import { Files, File } from '../.models/file';
-import { Groups, Group } from '../.models/group';
-import { GroupService } from '../.services/group.service';
-import { ProjectService } from '../.services/project.service';
-import { asyncError, asyncData } from '../.shared/test-helper';
+import { switchMap } from 'rxjs/operators';
+import { Commit } from '../$models/commit';
+import { File, Files } from '../$models/file';
+import { Group, Groups } from '../$models/group';
+import { Project } from '../$models/project';
+import { GroupService } from '../$services/group.service';
+import { ProjectService } from '../$services/project.service';
+import { asyncError } from '../$shared/test-helper';
 import { HomeService } from './home.service';
-import { Project } from '../.models/project';
-import { Commit } from '../.models/commit';
 
 describe('Home Service', () => {
     let homeService: HomeService;

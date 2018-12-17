@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Files, File } from '../.models/file';
-import { Project } from '../.models/project';
-import { Commit } from '../.models/commit';
+import { Files, File } from '../$models/file';
+import { Project } from '../$models/project';
+import { Commit } from '../$models/commit';
 import { HttpService } from './http.service';
 import { map } from 'rxjs/operators';
 

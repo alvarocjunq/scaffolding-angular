@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { HTTP_OPTIONS, URL_BASE } from '../.shared/config';
+import { HTTP_OPTIONS, URL_BASE } from '../$shared/config';
 
 @Injectable({
     providedIn: 'root',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Group, Groups } from '../.models/group';
+import { Group, Groups } from '../$models/group';
 import { HttpService } from './http.service';
 
 @Injectable({

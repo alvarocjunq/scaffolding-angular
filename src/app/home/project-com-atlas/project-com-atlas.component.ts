@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Files } from '../../.models/file';
-import { Alert } from '../../.shared/alert';
+import { Files } from '../../$models/file';
+import { Alert } from '../../$shared/alert';
 import { HomeService } from '../home.service';
 
 @Component({
