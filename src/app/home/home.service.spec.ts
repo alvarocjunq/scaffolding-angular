@@ -114,7 +114,7 @@ describe('Home Service', () => {
         expect(projectServiceSpy.getArchives.calls.count()).toBe(1, 'Deve chamar apenas 1 vez');
     });
 
-    it('deve criar um fork de um projeto com Hierarquia do Atlas e Atualizar arquivos Angular', (done) => {
+    it('deve criar um fork de um projeto COM HIERARQUIA do Atlas e Atualizar arquivos Angular', (done) => {
         const form = {
             capa: '',
             sistema: '',
@@ -150,7 +150,7 @@ describe('Home Service', () => {
             });
 
     });
-    it('deve criar um fork de um projeto com Hierarquia do Atlas e Atualizar arquivos AppConfig', (done) => {
+    it('deve criar um fork de um projeto COM HIERARQUIA do Atlas e Atualizar arquivos AppConfig', (done) => {
         const form = {
             capa: '',
             sistema: '',
@@ -186,11 +186,34 @@ describe('Home Service', () => {
             });
     });
 
-    it('deve criar um fork de um projeto que não tem hierarquia Atlas', () => {
+    it('deve criar um fork de um projeto que NÃO TEM HIERARQUIA Atlas', (done) => {
         const form = {
             selectedGroup: '',
             selectedTechnology: 'AppConfig',
         };
+        const files = [
+            {
+                id: '', path: '', content: '', name: 'Angular-12345678',
+                enconding: '', mode: '', technology: 'Angular', type: '',
+            },
+            {
+                id: '', path: '', content: '', name: 'AppConfig-12345678',
+                enconding: '', mode: '', technology: 'AppConfig', type: '',
+            },
+        ];
+        projectServiceSpy.fork.and.returnValue(of(expectedProject));
+        projectServiceSpy.edit.and.returnValue(of(expectedProject));
+        projectServiceSpy.getFileContent.and.returnValue(of(expectedFile));
+        projectServiceSpy.updateFile.and.returnValue(of(expectedCommit));
+        projectServiceSpy.deleteFork.and.returnValue(of({}));
+        homeService.forkSingleProject(form, 'nameProject', files)
+            .subscribe(() => {
+                expect(projectServiceSpy.fork.calls.count()).toBe(1, 'fork Deve chamar apenas 1 vez');
+                expect(projectServiceSpy.edit.calls.count()).toBe(1, 'edit Deve chamar apenas 1 vez');
+                expect(projectServiceSpy.getFileContent.calls.count()).toBe(0, 'getFileContent Não deve ser chamado');
+                expect(projectServiceSpy.updateFile.calls.count()).toBe(0, 'updateFile Não deve ser chamado');
+                done();
+            });
     });
 
 });
